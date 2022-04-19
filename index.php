@@ -1,15 +1,14 @@
 <?php
 get_header();
+
+
+page_banner(
+  array(
+    'title' => 'Welcome to Our Blog Section!!!',
+    'subtitle' => 'Keep up with our blog..',
+  )
+)
 ?>
- <div class="page-banner">
-      <div class="page-banner__bg-image" style="background-image: url(<?php echo get_template_directory_uri() . '/images/ocean.jpg' ?>)"></div>
-      <div class="page-banner__content container container--narrow">
-        <h1 class="page-banner__title">Welcome to Our Blog Section!!!</h1>
-        <div class="page-banner__intro">
-          <p>Keep up with our blog..</p>
-        </div>
-      </div>
-  </div>
 
   <div class="container container--narrow page-section">
     <?php
@@ -25,7 +24,7 @@ get_header();
 
             <div class="generic-content">
               <?php the_excerpt(); ?>
-              <p><a href="<?php the_permalink(); ?>">Contiune reading &raquo</a></p>
+              <p><a href="<?php the_permalink(); ?>">Continue reading &raquo</a></p>
             </div>
           </div>
         <?php

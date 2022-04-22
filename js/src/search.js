@@ -29,15 +29,22 @@ class Search{
 				this.resultDiv.html('<div class="spinner-loader"></div>');
 				this.isSpinnerRun = true;
 			}
-			this.typingTimer = setTimeout( this.getResult.bind(this), 2000 );
+			this.typingTimer = setTimeout( this.getResult.bind(this), 500 );
 		}
 
 		this.previousVal = this.searchField.val();
 	}
 
 	getResult(){
-		this.resultDiv.html('here is seaching results..');
-		this.isSpinnerRun = false;
+		$.getJSON('http://127.0.0.1/WordPress/index.php/wp-json/wp/v2/posts?search='+ this.searchField.val(), posts => {
+			this.resultDiv.html(`
+				<h2 class="search-overlay__section-title">General Information</h2>
+				${ posts.length ? '<ul class="link-list min-list">' : '<h3>No Content</h3>' }
+					${ posts.map( item => `<li><a href="${item.link}">${item.title.rendered}</a></li>` ).join('') }
+				${ posts.length ? '</ul>' : '' }
+			`);
+			this.isSpinnerRun = false;
+		});
 	}
 
 	keyDispatcher(e){

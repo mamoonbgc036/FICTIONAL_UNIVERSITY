@@ -1,5 +1,13 @@
 <?php 
+	
+	require get_theme_file_path('/inc/search-route.php');
 
+	function university_rest_api(){
+		register_rest_field('post', 'authorName', array(
+			'get_callback' => function(){ return get_the_author(); }
+		));
+	}
+	add_action('rest_api_init', 'university_rest_api');
 
 	function page_banner( $arg = NULL ) {
 

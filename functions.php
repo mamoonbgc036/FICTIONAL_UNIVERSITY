@@ -50,6 +50,9 @@
 		wp_enqueue_style( 'university_index_style', get_template_directory_uri().'/build/index.css', [], '' );
 
 		wp_enqueue_style( 'university_main_style', get_stylesheet_uri(), [], filemtime( get_template_directory().'/style.css' ) );
+		wp_localize_script( 'university_live_search', 'universityData', [
+			'root_url' => get_site_url(),
+		] );
 	}
 
 	add_action( 'wp_enqueue_scripts', 'university_files' );

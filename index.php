@@ -1,4 +1,6 @@
 <?php
+
+echo 'index';
 get_header();
 
 

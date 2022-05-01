@@ -86,21 +86,6 @@ class Search{
 			`);
 			this.isSpinnerRun = false;
 		})
-		// $.when(
-		// $.getJSON( universityData.root_url+ '/wp-json/wp/v2/posts?search='+ this.searchField.val()),
-		// $.getJSON(universityData.root_url+ '/wp-json/wp/v2/pages?search='+ this.searchField.val())
-		// ).then((posts, pages)=>{
-		// 	let combinedData = posts[0].concat(pages[0]);
-		// 	this.resultDiv.html(`
-		// 		<h2 class="search-overlay__section-title">General Information</h2>
-		// 		${ combinedData.length ? '<ul class="link-list min-list">' : '<h3>No Content</h3>' }
-		// 			${ combinedData.map( item => `<li><a href="${item.link}">${item.title.rendered}</a> ${ item.type == 'post' ? `by ${ item.authorName }` : '' } </li>` ).join('') }
-		// 		${ combinedData.length ? '</ul>' : '' }
-		// 	`);
-		// 	this.isSpinnerRun = false;
-		// }, ()=>{
-		// 	this.resultDiv.html('<h3>Unexpected Error...</h3>')
-		// })
 	}
 
 	keyDispatcher(e){
@@ -119,6 +104,7 @@ class Search{
 		this.searchField.val('');
 		setTimeout(()=>this.searchField.focus(), 301);
 		this.isOverlayOpen = true;
+		return false;
 	}
 
 	closeOverlay(){

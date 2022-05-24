@@ -1,13 +1,11 @@
 <?php
-
-echo 'Search.php';
 get_header();
 
 
 page_banner(
   array(
-    'title' => 'Search Results',
-    'subtitle' => 'You Search for &ldquo;'. esc_html( get_search_query(false) ) .'&rdquo;',
+    'title' => 'Welcome to Our Blog Section!!!',
+    'subtitle' => 'Keep up with our blog..',
   )
 )
 ?>
@@ -16,9 +14,22 @@ page_banner(
     <?php
       while( have_posts() ) {
         the_post();
-        get_template_part( 'templates-parts/content', get_post_type() );
-        //echo get_post_type();
+        ?>
+          <div class="post-item">
+            <h2 class="headline headline--medium headline--post-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+
+            <div class="metabox">
+              <p>Posted by <?php the_author_posts_link(); ?> on <?php the_time( 'n.j.y' ); ?> in <?php echo get_the_category_list( ', ' ); ?></p>
+            </div>
+
+            <div class="generic-content">
+              <?php the_excerpt(); ?>
+              <p><a href="<?php the_permalink(); ?>">Continue reading &raquo</a></p>
+            </div>
+          </div>
+        <?php
       }
+
       echo paginate_links();
     ?>
   </div>

@@ -52,6 +52,7 @@
 		wp_enqueue_style( 'university_main_style', get_stylesheet_uri(), [], filemtime( get_template_directory().'/style.css' ) );
 		wp_localize_script( 'university_live_search', 'universityData', [
 			'root_url' => get_site_url(),
+			'nonce' => wp_create_nonce( 'wp_rest' ),
 		] );
 	}
 
@@ -89,10 +90,58 @@
 	add_action( 'pre_get_posts', 'university_adjust_query' );
 
 	function university_map_api($api){
-		$api['key'] = 'AIzaSyAE2zrvgue9j-Zsk7e0zIACgeaLmIbuzhU';
+		// $api['key'] = 'AIzaSyAE2zrvgue9j-Zsk7e0zIACgeaLmIbuzhU';
+		$api['key'] = 'AIzaSyBh9b1rNCp6k0i5JeMHiRP4klDymBeoEWk';
 		return $api;
 	}
 
-	add_filter( 'acf/fields/google_map/api', 'university_map_api' )
+	add_filter( 'acf/fields/google_map/api', 'university_map_api' );
+
+	//REDIRECT SUBSCRIBER TO FRONTEND
+	add_action( 'admin_init', 'redirectSubscriber' );
+
+	function redirectSubscriber(){
+		$ourSubscriber = wp_get_current_user();
+
+		if( count($ourSubscriber->roles)==1 AND $ourSubscriber->roles[0] == 'subscriber' ){
+			wp_redirect( site_url('/') );
+			exit;
+		}
+	}
+
+	//REMOVE ADMIN BAR FOR SUBSCRIBER TO FRONTEND
+	add_action( 'wp_loaded', 'noAdminBarForSubscriber' );
+
+	function noAdminBarForSubscriber(){
+		$ourSubscriber = wp_get_current_user();
+
+		if( count($ourSubscriber->roles)==1 AND $ourSubscriber->roles[0] == 'subscriber' ){
+			show_admin_bar( false );
+		}
+	}
+
+	//WORDPRESS LOGIN LOGO URL CHANGE TO OUR HOMEPAGE FROM WORDPRESS.ORG
+
+	add_filter( 'login_headerurl', 'ourHeaderUrl' );
+
+	function ourHeaderUrl(){
+		return esc_url( site_url( '/' ) );
+	}
+
+	//ADD MY OWN CSS TO MODIFY LOGIN SCREEN
+
+	add_action( 'login_enqueue_scripts', 'changeLoginStyle' );
+
+	function changeLoginStyle(){
+		wp_enqueue_style( 'university_main_style', get_stylesheet_uri(), [], filemtime( get_template_directory().'/style.css' ) );
+	}
+
+	//CHANGE HOVER NAME OF LOGIN LOGO
+
+	add_filter( 'login_headertitle', 'ourOwnHoverName' );
+
+	function ourOwnHoverName(){
+		return get_bloginfo( 'name' );
+	}
 
 ?>

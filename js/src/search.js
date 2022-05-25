@@ -17,7 +17,7 @@ class Search{
 	events(){
 		this.openButton.on('click', this.openOverlay.bind(this));
 		this.closeButton.on('click', this.closeOverlay.bind(this));
-		$(document).on('keydown', this.keyDispatcher.bind(this));
+		// $(document).on('keydown', this.keyDispatcher.bind(this));
 		this.searchField.on( 'keyup', this.inputFieldEvent.bind(this) );
 	}
 
@@ -88,15 +88,15 @@ class Search{
 		})
 	}
 
-	keyDispatcher(e){
-		if (e.keyCode == 83 && !this.isOverlayOpen){
-			this.openOverlay();
-		}
+	// keyDispatcher(e){
+	// 	if (e.keyCode == 83 && !this.isOverlayOpen){
+	// 		this.openOverlay();
+	// 	}
 
-		if ( e.keyCode == 27 && this.isOverlayOpen ){
-			this.closeOverlay();
-		}
-	}
+	// 	if ( e.keyCode == 27 && this.isOverlayOpen ){
+	// 		this.closeOverlay();
+	// 	}
+	// }
 
 	openOverlay(){
 		this.searchOverlay.addClass('search-overlay--active')

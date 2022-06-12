@@ -10,6 +10,7 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist'),
 		filename: '[name].js'
 	},
+	watch: true,
 	resolve: {
         modules: [
             path.join(__dirname, "js"), "node_modules"

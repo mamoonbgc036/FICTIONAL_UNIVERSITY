@@ -1,5 +1,7 @@
 <?php 
 	
+	require get_theme_file_path('/inc/likes-route.php');
+
 	require get_theme_file_path('/inc/search-route.php');
 
 	function university_rest_api(){

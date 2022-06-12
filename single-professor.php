@@ -13,6 +13,40 @@
          			<?php the_post_thumbnail( 'professor_portrait' ); ?>
          		</div>
          		<div class="two-third">
+         			<?php 
+
+         				$like_count = new WP_Query(array(
+         					'post_type'=>'like',
+         					'meta_query'=>array(array(
+         						'key'=>'liked_professor_ID',
+         						'compare'=>'=',
+         						'value'=>get_the_ID(),
+		         			))
+         				));
+
+
+         				$is_author_liked = 'no';
+
+
+         				$is_liked = new WP_Query(array(
+         					'author'=>get_current_user_id(),
+         					'post_type'=>'like',
+         					'meta_query'=>array(array(
+         						'key'=>'liked_professor_ID',
+         						'compare'=>'=',
+         						'value'=>get_the_ID(),
+		         			))
+         				));
+
+         				if( $is_liked->found_posts ){
+         					$is_author_liked = 'yes';
+         				}
+         			?>
+         			<span class="like-box" data-exists="<?php echo $is_author_liked; ?>" >
+         				<i class="fa fa-heart-o" arial-hidden="true"></i>
+         				<i class="fa fa-heart" arial-hidden="true"></i>
+         				<span class="like-count"><?php echo $like_count->found_posts; ?></span>
+         			</span>
          			<?php the_content(); ?>
          		</div>
          	</div>

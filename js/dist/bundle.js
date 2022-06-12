@@ -26,7 +26,18 @@ eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!\r\n * 
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _search_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./search.js */ \"./src/search.js\");\n/* harmony import */ var _mynotes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mynotes.js */ \"./src/mynotes.js\");\n\r\n\r\n\r\nnew _mynotes_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"]();\r\nnew _search_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"]();\r\n\r\n\n\n//# sourceURL=webpack://js/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _search_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./search.js */ \"./src/search.js\");\n/* harmony import */ var _mynotes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mynotes.js */ \"./src/mynotes.js\");\n/* harmony import */ var _like_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./like.js */ \"./src/like.js\");\n\r\n\r\n\r\n\r\nnew _mynotes_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"]();\r\nnew _search_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"]();\r\nnew _like_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"]();\r\n\r\n\n\n//# sourceURL=webpack://js/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/like.js":
+/*!*********************!*\
+  !*** ./src/like.js ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* provided dependency */ var $ = __webpack_require__(/*! jquery */ \"./node_modules/jquery/dist/jquery.js\");\nclass Like{\r\n\tconstructor(){\r\n\t\tthis.events();\r\n\t}\r\n\r\n\tevents(){\r\n\t\t$('.like-box').on('click', this.keyDispatcher.bind(this));\r\n\t}\r\n\r\n\tkeyDispatcher(e){\r\n\t\tlet currentCliked = $('.like-box').attr('data-exists');\r\n\t\tif(currentCliked=='yes'){\r\n\t\t\tthis.delete();\r\n\t\t} else{\r\n\t\t\tthis.createLike();\r\n\t\t}\r\n\t}\r\n\r\n\tdelete(){\r\n\t\t$.ajax({\r\n\t\t\turl: universityData.root_url + '/wp-json/university/v1/managelikes',\r\n\t\t\ttype: 'DELETE',\r\n\t\t\tsuccess: (response)=>{\r\n\t\t\t\talert(response);\r\n\t\t\t},\r\n\t\t\terror: (response)=>{\r\n\t\t\t\talert(response);\r\n\t\t\t}\r\n\t\t})\r\n\t}\r\n\r\n\tcreateLike(){\r\n\t\t$.ajax({\r\n\t\t\turl: universityData.root_url + '/wp-json/university/v1/managelikes',\r\n\t\t\ttype: 'POST',\r\n\t\t\tsuccess: (response)=>{\r\n\t\t\t\talert(response);\r\n\t\t\t},\r\n\t\t\terror: (response)=>{\r\n\t\t\t\talert(response);\r\n\t\t\t}\r\n\t\t})\r\n\t}\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Like);\n\n//# sourceURL=webpack://js/./src/like.js?");
 
 /***/ }),
 

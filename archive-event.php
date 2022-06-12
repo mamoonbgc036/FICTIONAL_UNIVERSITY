@@ -4,7 +4,7 @@ get_header();
 page_banner( array(
 	'title'    => 'All Events',
 	'subtitle' => 'See What is happing in our world',
-) )
+) );
 ?>
 
   <div class="container container--narrow page-section">

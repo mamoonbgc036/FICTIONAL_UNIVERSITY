@@ -8,11 +8,12 @@ class Like{
 	}
 
 	keyDispatcher(e){
-		let currentCliked = $('.like-box').attr('data-exists');
-		if(currentCliked=='yes'){
+		let currentCliked = $(e.target).closest('.like-box');
+		alert(currentCliked.data('exists'));
+		if(currentCliked.data('exists')=='yes'){
 			this.delete();
 		} else{
-			this.createLike();
+			this.createLike(currentCliked);
 		}
 	}
 
@@ -29,10 +30,14 @@ class Like{
 		})
 	}
 
-	createLike(){
+	createLike(currentCliked){
 		$.ajax({
+			beforeSend:function(xhr){
+				xhr.setRequestHeader( 'X-WP-Nonce', universityData.nonce );
+			},
 			url: universityData.root_url + '/wp-json/university/v1/managelikes',
 			type: 'POST',
+			data: {'professorId': currentCliked.data('professor')},
 			success: (response)=>{
 				alert(response);
 			},

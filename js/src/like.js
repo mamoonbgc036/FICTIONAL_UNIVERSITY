@@ -9,23 +9,27 @@ class Like{
 
 	keyDispatcher(e){
 		let currentCliked = $(e.target).closest('.like-box');
-		alert(currentCliked.data('exists'));
-		if(currentCliked.data('exists')=='yes'){
-			this.delete();
+		if(currentCliked.attr('data-exists')=='yes'){
+			this.delete(currentCliked);
 		} else{
 			this.createLike(currentCliked);
 		}
 	}
 
-	delete(){
+	delete(currentCliked){
+		let id = currentCliked.attr('data-liked');
 		$.ajax({
 			url: universityData.root_url + '/wp-json/university/v1/managelikes',
 			type: 'DELETE',
+			data:{'id_for_delete':id},
 			success: (response)=>{
-				alert(response);
+				currentCliked.attr('data-exists', 'no');
+				let likeCount = parseInt(currentCliked.find('.like-count').html());
+				likeCount--;
+				currentCliked.find('.like-count').html(likeCount);
 			},
 			error: (response)=>{
-				alert(response);
+				alert('ok');
 			}
 		})
 	}
@@ -39,10 +43,14 @@ class Like{
 			type: 'POST',
 			data: {'professorId': currentCliked.data('professor')},
 			success: (response)=>{
-				alert(response);
+				currentCliked.attr('data-exists', 'yes');
+				let likeCount = parseInt(currentCliked.find('.like-count').html());
+				likeCount++;
+				currentCliked.find('.like-count').html(likeCount);
+				currentCliked.attr('data-liked', response);
 			},
 			error: (response)=>{
-				alert(response);
+				console.log(response);
 			}
 		})
 	}

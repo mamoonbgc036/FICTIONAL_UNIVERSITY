@@ -27,22 +27,24 @@
 
          				$is_author_liked = 'no';
 
+         				if(is_user_logged_in()){
+         					$is_liked = new WP_Query(array(
+	         					'author'=>get_current_user_id(),
+	         					'post_type'=>'like',
+	         					'meta_query'=>array(array(
+	         						'key'=>'liked_professor_id',
+	         						'compare'=>'=',
+	         						'value'=>get_the_ID(),
+			         			))
+	         				));
 
-         				$is_liked = new WP_Query(array(
-         					'author'=>get_current_user_id(),
-         					'post_type'=>'like',
-         					'meta_query'=>array(array(
-         						'key'=>'liked_professor_id',
-         						'compare'=>'=',
-         						'value'=>get_the_ID(),
-		         			))
-         				));
-
-         				if( $is_liked->found_posts ){
-         					$is_author_liked = 'yes';
+	         				if( $is_liked->found_posts ){
+	         					$is_author_liked = 'yes';
+	         				}
          				}
+
          			?>
-         			<span class="like-box" data-professor="<?php echo get_the_ID(); ?>" data-exists="<?php echo $is_author_liked; ?>" >
+         			<span class="like-box" data-liked="<?php echo $is_liked->posts[0]->ID; ?>" data-professor="<?php echo get_the_ID(); ?>" data-exists="<?php echo $is_author_liked; ?>" >
          				<i class="fa fa-heart-o" arial-hidden="true"></i>
          				<i class="fa fa-heart" arial-hidden="true"></i>
          				<span class="like-count"><?php echo $like_count->found_posts; ?></span>
